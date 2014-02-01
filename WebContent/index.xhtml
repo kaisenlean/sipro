@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Sipro</title>
+</h:head>
+<h:body style="font-size: 11px;">
+	<h:form>
+		<p:growl autoUpdate="true" showDetail="true" sticky="true" />
+		<div align="center" style="position: relative;">
+
+	
+			<h:graphicImage url="/imagenes/logo.jpg" width="250" height="100" />
+			<h:panelGrid columns="1" style="margin-left: 1%">
+		
+				<p:inputText size="30" placeholder="Usuario" style="width: 100%"
+					 id="usuari" />
+
+				<p:password size="30" placeholder="Contraseña" style="width: 100%"
+					
+					onkeypress="if (event.keyCode == 13) { btnIngreso.jq.click();  return false; }"
+					id="contras"></p:password>
+
+			</h:panelGrid>
+			<p:commandButton icon="ui-icon-check" style="margin-left: 0%"
+				value="Ingresar" process="@this,contras,usuari" partialSubmit="true"
+				action="/inicio.jsf" id="btnIngreso" widgetVar="btnIngreso"
+				 />
+<!-- 				<p:commandButton icon="ui-icon-check" style="margin-left: 0%" -->
+<!-- 				value="Ingresar" process="@this,contras,usuari" partialSubmit="true" -->
+<!-- 				action="#{login.login()}" id="btnIngreso" widgetVar="btnIngreso" -->
+<!-- 				oncomplete="handleLoginRequest(xhr, status, args)" /> -->
+
+			<!-- 		</p:dialog> -->
+
+		</div>
+	</h:form>
+
+	<script type="text/javascript">  
+    function handleLoginRequest(xhr, status, args) {  
+        if(args.validationFailed || !args.loggedIn) {  
+            pnl.jq.effect("shake", { times:5 }, 100);  
+        }   
+        else {  
+            pnl.hide();  
+            $('#loginLink').fadeOut();  
+        }  
+    }  
+</script>
+</h:body>
+</html>
+

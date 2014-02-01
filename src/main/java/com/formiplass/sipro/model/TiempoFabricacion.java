@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,7 +18,11 @@ public class TiempoFabricacion implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String referencia; 
+	private Integer id;
+	
+	@ManyToOne
+	@JoinColumn(name="referencia")
+	private Item referencia; 
 	
 	@Column(name="tipo_operacion")
 	private String tipoOperacion;
@@ -35,11 +41,11 @@ public class TiempoFabricacion implements Serializable{
 
 	}
 
-	public String getReferencia() {
+	public Item getReferencia() {
 		return referencia;
 	}
 
-	public void setReferencia(String referencia) {
+	public void setReferencia(Item referencia) {
 		this.referencia = referencia;
 	}
 
