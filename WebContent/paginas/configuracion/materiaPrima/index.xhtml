@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/plantilla/theme.xhtml">
+
+		<ui:define name="body">
+			<h1>
+				<h:outputText value="Gestion de Materia Prima" />
+			</h1>
+
+			<h:form>
+				<h:panelGrid rendered="#{!beanMateriaPrima.form}">
+					<p:commandButton value=" Nueva materia prima"
+						action="#{beanMateriaPrima.verFormNuevo(true)}" process="@this"
+						update="@all"></p:commandButton>
+				</h:panelGrid>
+
+
+				<p:panel header="Informacion de la materia prima"
+					rendered="#{beanMateriaPrima.form}">
+
+					<h:panelGrid columns="3">
+
+						<h:outputText value="Codigo" rendered="#{beanMateriaPrima.edit}" />
+						<p:inputText readonly="true" id="codigoUnidad"
+							value="#{beanMateriaPrima.objeto.codigo}"
+							rendered="#{beanMateriaPrima.edit}"></p:inputText>
+						<p:message for="codigoUnidad" rendered="#{beanMateriaPrima.edit}"></p:message>
+
+
+
+						<h:outputText value="Item" />
+						<p:autoComplete size="100" style="width:400px"
+							id="buscadorItemExistencia" var="it" itemLabel="#{it}"
+							itemValue="#{it}"
+							converter="#{beanMateriaPrima.autocompletarItem.conversorItems}"
+							value="#{beanMateriaPrima.autocompletarItem.seleccionado}"
+							completeMethod="#{beanMateriaPrima.autocompletarItem.completarBusqueda}">
+							<p:ajax event="itemSelect" update="@all" process="@this"
+								listener="#{beanMateriaPrima.autocompletarItem.seleccionar}">
+
+							</p:ajax>
+						</p:autoComplete>
+						<p:message for="buscadorItemExistencia"></p:message>
+
+
+
+
+
+						<h:outputText value="Materia prima" />
+						<p:autoComplete size="100" style="width:400px"
+							id="buscadorMateriaPrima" var="it" itemLabel="#{it}"
+							itemValue="#{it}"
+							converter="#{beanMateriaPrima.autocompletarItem2.conversorItems}"
+							value="#{beanMateriaPrima.autocompletarItem2.seleccionado}"
+							completeMethod="#{beanMateriaPrima.autocompletarItem2.completarBusqueda}">
+							<p:ajax event="itemSelect" update="@all" process="@this"
+								listener="#{beanMateriaPrima.autocompletarItem2.seleccionar}">
+
+							</p:ajax>
+						</p:autoComplete>
+						<p:message for="buscadorMateriaPrima"></p:message>
+
+
+
+						<h:outputText value="Unidad de medida" />
+						<p:selectOneMenu id="uniMedida" value="#{beanMateriaPrima.selMateriaPrima}" required="true" requiredMessage="Selecciona una unidad de medida">
+						<f:selectItem itemLabel=" - - Seleccione - -" itemValue=""/>
+						<p:ajax event="change" partialSubmit="true"></p:ajax>
+						<f:selectItems value="#{selectorUnidadMedida.lista}"></f:selectItems>
+						</p:selectOneMenu>
+						<p:message for="uniMedida"></p:message>
+
+
+					
+						<h:outputText value="Cantidad"  />
+						<p:inputText id="cantidad"
+							value="#{beanMateriaPrima.objeto.cantidad}"
+							></p:inputText>
+						<p:message for="cantidad" ></p:message>
+					
+					
+					
+						<h:outputText value="Talla"  />
+						<p:inputText id="talla"
+							value="#{beanMateriaPrima.objeto.talla}"
+							></p:inputText>
+						<p:message for="talla" ></p:message>
+
+						<p:commandButton value="Aceptar" process="@all" update="@all"
+							action="#{beanMateriaPrima.aceptar()}"></p:commandButton>
+						<p:commandButton value="Cancelar" immediate="true" process="@all" update="@all"
+							action="#{beanMateriaPrima.reglaNavegacion()}"></p:commandButton>
+					</h:panelGrid>
+				</p:panel>
+
+				<p:dataTable rendered="#{!beanMateriaPrima.form}"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					lazy="true" rows="10" paginator="true"
+					rowsPerPageTemplate="10,20,30" value="#{beanMateriaPrima.model}"
+					var="unidad">
+
+					<p:column headerText="Codigo">
+						<h:outputText value="#{unidad.codigo}" />
+					</p:column>
+
+
+					<p:column headerText="Referencia">
+						<h:outputText value="#{unidad.referencia}" />
+					</p:column>
+					
+					<p:column headerText="Materia prima">
+						<h:outputText value="#{unidad.material}" />
+					</p:column>
+					
+					
+					<p:column headerText="Cantidad">
+						<h:outputText value="#{unidad.cantidad}" />
+					</p:column>
+					
+					<p:column headerText="Talla">
+						<h:outputText value="#{unidad.talla}" />
+					</p:column>
+
+
+					<p:column headerText="Unidad de medida">
+						<h:outputText value="#{unidad.unidadMedida}" />
+					</p:column>
+
+
+					<p:column>
+						<p:commandButton icon="ui-icon-pencil"
+							actionListener="#{beanMateriaPrima.renderizarItem(unidad,true)}"
+							process="@this" update="@all"></p:commandButton>
+					</p:column>
+
+
+					<p:column>
+						<p:commandButton icon="ui-icon-trash"
+							actionListener="#{beanMateriaPrima.eliminarItem(unidad)}"
+							process="@this" update="@all">
+							<p:confirm header="Confirmacion"
+								message="Desea eliminar este item ?" icon="ui-icon-alert"></p:confirm>
+						</p:commandButton>
+
+						<p:confirmDialog global="true" showEffect="fade"
+							hideEffect="explode">
+							<p:commandButton value="Yes" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="No" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+					</p:column>
+				</p:dataTable>
+
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+</f:view>

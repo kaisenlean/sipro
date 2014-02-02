@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/plantilla/theme.xhtml">
+
+	<ui:define name="body">
+		<h1>
+			<h:outputText value="Gestion de Unidades de medida" />
+		</h1>
+
+		<h:form>
+			<h:panelGrid rendered="#{!beanUnidadMedida.form}">
+				<p:commandButton value=" Nueva unidad de medida"
+					action="#{beanUnidadMedida.verFormNuevo(true)}" process="@this"
+					update="@all"></p:commandButton>
+			</h:panelGrid>
+
+
+			<p:panel header="Informacion de la unidad"
+				rendered="#{beanUnidadMedida.form}">
+
+				<h:panelGrid columns="3">
+				
+					<h:outputText value="Codigo" rendered="#{beanUnidadMedida.edit}" />
+					<p:inputText id="codigoUnidad"
+						value="#{beanUnidadMedida.objeto.codigo}"
+						rendered="#{beanUnidadMedida.edit}"></p:inputText>
+					<p:message for="codigoUnidad" rendered="#{beanUnidadMedida.edit}"></p:message>
+
+
+
+					<h:outputText value="Valor" />
+					<p:inputText id="valorUnidad"
+						value="#{beanUnidadMedida.objeto.valor}" required="true"
+						requiredMessage="Valor requerido"></p:inputText>
+					<p:message for="valorUnidad"></p:message>
+
+
+					<p:commandButton value="Aceptar" process="@all" update="@all"
+						action="#{beanUnidadMedida.aceptar()}"></p:commandButton>
+					<p:commandButton value="Cancelar" immediate="true"
+						action="#{beanUnidadMedida.reglaNavegacion()}"></p:commandButton>
+				</h:panelGrid>
+			</p:panel>
+
+			<p:dataTable rendered="#{!beanUnidadMedida.form}"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				lazy="true" rows="10" paginator="true"
+				rowsPerPageTemplate="10,20,30" value="#{beanUnidadMedida.model}"
+				var="unidad">
+
+				<p:column headerText="Codigo">
+					<h:outputText value="#{unidad.codigo}" />
+				</p:column>
+
+
+				<p:column headerText="Valor">
+					<h:outputText value="#{unidad.valor}" />
+				</p:column>
+
+
+				<p:column>
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{beanUnidadMedida.renderizarItem(unidad,true)}"
+						process="@this" update="@all"></p:commandButton>
+				</p:column>
+
+
+				<p:column>
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{beanUnidadMedida.eliminarItem(unidad)}"
+						process="@this" update="@all">
+						<p:confirm header="Confirmacion"
+							message="Desea eliminar este item ?" icon="ui-icon-alert"></p:confirm>
+					</p:commandButton>
+
+					<p:confirmDialog global="true" showEffect="fade"
+						hideEffect="explode">
+						<p:commandButton value="Yes" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="No" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</f:view>

@@ -34,11 +34,11 @@
 		<td class="header"  align="center" valign="middle" width="100%" bgcolor="#E4EBEB">
 			<p:tabMenu activeIndex="0">
     <p:menuitem value="Item" url="/ui/tabMenu.jsf" icon="ui-icon-star"/>
-    <p:menuitem value="Materia Prima" url="/ui/tabMenuDemos.jsf" icon="ui-icon-search" />
-    <p:menuitem value="Unidad de Medida" url="/ui/tabMenuDocumentation.jsf" icon="ui-icon-document"/>
+    <p:menuitem value="Materia Prima" url="/paginas/configuracion/materiaPrima/index.jsf" icon="ui-icon-search" />
+    <p:menuitem value="Unidad de Medida" url="/paginas/configuracion/unidadmedida/index.jsf" icon="ui-icon-document"/>
     <p:menuitem value="Tiempo Fabricacion" url="/ui/tabMenuSupport.jsf" icon="ui-icon-wrench"/>
 </p:tabMenu>
-                    
+        <p:messages globalOnly="true" autoUpdate="true" showSummary="true" showDetail="true" severity="warn,error,info"></p:messages>            
 		</td>
 	</tr>
 	<tr>
@@ -46,18 +46,19 @@
 	</tr>	
 
 	<tr>
-		<td width="100%"  colspan="2">
-			<table width="100%" align="center" cellpadding="0" cellspacing="0" border="0">
-			<tbody>
-				<tr>
-					<td align="center" width="100%" valign="middle">
-					
+		
+					<td align="left" width="100%">
+					<p:ajaxStatus onstart="PF('statusDialog').show();"
+					onsuccess="PF('statusDialog').hide();" />
+
+				<p:dialog appendToBody="true" modal="true" widgetVar="statusDialog"
+					header="Por favor espere ..." draggable="false" closable="false">
+					<p:graphicImage value="/imagenes/ajaxloadingbar.gif" />
+				</p:dialog>
 					<ui:insert name="body">Page Body</ui:insert>
 					
-					</td>
-				</tr>
-			</tbody>
-			</table>
+					
+		
 		</td>
 	</tr>	
 	

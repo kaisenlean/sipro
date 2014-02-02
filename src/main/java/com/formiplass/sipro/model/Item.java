@@ -26,6 +26,10 @@ public class Item implements Serializable {
 	@Column 
 	private String nombre;
 	
+
+	@Column(name="tipoinventario")
+	private  Integer tipoInventario;
+	
 	
 	public Item() {
 	}
@@ -60,8 +64,17 @@ public class Item implements Serializable {
 		this.nombre = nombre;
 	}
 
+	public Integer getTipoInventario() {
+		return tipoInventario;
+	}
+	
+	public void setTipoInventario(Integer tipoInventario) {
+		this.tipoInventario = tipoInventario;
+	}
 	
 	
-	
-
+@Override
+public String toString() {
+	return nombre+"["+referencia+"]";
+}
 }

@@ -1,6 +1,7 @@
 package com.formiplass.sipro.services.impl;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,10 @@ public class ItemServiceImpl extends GenericServiceImpl<Item, String> implements
 	@Override
 	public GenericRepository<Item, String> getDao() {
 		return itemDao;
+	}
+	@Override
+	public List<Item> findByCriterio(String parametro,Integer tipoInventario) {
+		return itemDao.findByCriterio(parametro,tipoInventario);
 	}
 
 }

@@ -15,36 +15,35 @@ import javax.persistence.Table;
 @Table(name = "materia_prima")
 public class MateriaPrima implements Serializable {
 
-	/**
-	 * CREATE TABLE materia_prima (codigo INT (11) PRIMARY KEY , referencia
-	 * VARCHAR(100) , material VARCHAR(255),unidad_medida INT(11),cantidad
-	 * DOUBLE(10,2),talla VARCHAR(100));
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer codigo;
 
-	@JoinColumn(name="referencia")
+	@ManyToOne
+	@JoinColumn(name="referencia",referencedColumnName="referencia")
 	private Item referencia;
-
-	@Column
-	private String material;
+	
+	@ManyToOne
+	@JoinColumn(name="material",referencedColumnName="referencia")
+	private Item material;
 
 	@ManyToOne
 	@JoinColumn(name = "unidad_medida")
 	private UnidadMedida unidadMedida;
 
-	public MateriaPrima() {
-
-	}
+	
+	
 
 	@Column
 	private Double cantidad;
 
 	@Column
 	private String talla;
+	public MateriaPrima() {
+		
+	}
 
 	public Integer getCodigo() {
 		return codigo;
@@ -62,11 +61,11 @@ public class MateriaPrima implements Serializable {
 		this.referencia = referencia;
 	}
 
-	public String getMaterial() {
+	public Item getMaterial() {
 		return material;
 	}
 
-	public void setMaterial(String material) {
+	public void setMaterial(Item material) {
 		this.material = material;
 	}
 
@@ -93,5 +92,7 @@ public class MateriaPrima implements Serializable {
 	public void setTalla(String talla) {
 		this.talla = talla;
 	}
+
+	
 
 }

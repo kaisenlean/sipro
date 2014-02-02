@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +21,7 @@ public class UnidadMedida implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer codigo;
 
-	@Column
+	@Column(name="valor")
 	private String valor;
 
 	public UnidadMedida() {
@@ -42,6 +41,11 @@ public class UnidadMedida implements Serializable {
 
 	public void setValor(String valor) {
 		this.valor = valor;
+	}
+	
+	@Override
+	public String toString() {
+return valor;
 	}
 
 }
