@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/plantilla/theme.xhtml">
+
+		<ui:define name="body">
+			<h1>
+				<h:outputText value="Gestion de Tiempos de Fabricación" />
+			</h1>
+
+			<h:form>
+				<h:panelGrid rendered="#{!beanTiempoFabricacion.form}">
+					<p:commandButton value=" Nuevo tiempo de fabricacion"
+						action="#{beanTiempoFabricacion.verFormNuevo(true)}" process="@this"
+						update="@all"></p:commandButton>
+				</h:panelGrid>
+
+
+				<p:panel header="Informacion de la materia prima"
+					rendered="#{beanTiempoFabricacion.form}">
+
+					<h:panelGrid columns="3">
+
+						<h:outputText value="Codigo" rendered="#{beanTiempoFabricacion.edit}" />
+						<p:inputText readonly="true" id="codigoUnidad"
+							value="#{beanTiempoFabricacion.objeto.id}"
+							rendered="#{beanTiempoFabricacion.edit}"></p:inputText>
+						<p:message for="codigoUnidad" rendered="#{beanTiempoFabricacion.edit}"></p:message>
+
+
+
+
+
+
+						<h:outputText value="Item" />
+						<p:autoComplete size="100" style="width:400px"
+							id="buscadorMateriaPrima" var="it" itemLabel="#{it}"
+							itemValue="#{it}"
+							converter="#{beanTiempoFabricacion.autocompletarItem.conversorItems}"
+							value="#{beanTiempoFabricacion.autocompletarItem.seleccionado}"
+							completeMethod="#{beanTiempoFabricacion.autocompletarItem.completarBusqueda}">
+							<p:ajax event="itemSelect" update="@all" process="@this"
+								listener="#{beanTiempoFabricacion.autocompletarItem.seleccionar}">
+
+							</p:ajax>
+						</p:autoComplete>
+						<p:message for="buscadorMateriaPrima"></p:message>
+
+
+					
+						<h:outputText value="Tipo operación"  />
+						<p:inputText id="cantidad"
+							value="#{beanTiempoFabricacion.objeto.tipoOperacion}"
+							></p:inputText>
+						<p:message for="cantidad" ></p:message>
+					
+					
+					
+						<h:outputText value="Actividad"  />
+						<p:inputText id="talla"
+							value="#{beanTiempoFabricacion.objeto.actividad}"
+							></p:inputText>
+						<p:message for="talla" ></p:message>
+
+						
+					
+						<h:outputText value="Unidad hora"  />
+						<p:inputText id="talla2"
+							value="#{beanTiempoFabricacion.objeto.unidad}"
+							></p:inputText>
+						<p:message for="talla2" ></p:message>
+
+					
+						<h:outputText value="Numero Colaboradores"  />
+						<p:inputText id="talla3"
+							value="#{beanTiempoFabricacion.objeto.numerosColaboradores}"
+							></p:inputText>
+						<p:message for="talla3" ></p:message>
+
+
+
+						<p:commandButton value="Aceptar" process="@all" update="@all"
+							action="#{beanTiempoFabricacion.aceptar()}"></p:commandButton>
+						<p:commandButton value="Cancelar" immediate="true" process="@all" update="@all"
+							action="#{beanTiempoFabricacion.reglaNavegacion()}"></p:commandButton>
+					</h:panelGrid>
+				</p:panel>
+
+				<p:dataTable rendered="#{!beanTiempoFabricacion.form}"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					lazy="true" rows="10" paginator="true"
+					rowsPerPageTemplate="10,20,30" value="#{beanTiempoFabricacion.model}"
+					var="unidad">
+
+					<p:column headerText="Codigo">
+						<h:outputText value="#{unidad.id}" />
+					</p:column>
+
+
+					<p:column headerText="Item">
+						<h:outputText value="#{unidad.referencia}" />
+					</p:column>
+					
+					<p:column headerText="Actividad">
+						<h:outputText value="#{unidad.actividad}" />
+					</p:column>
+					
+					
+					<p:column headerText="Tipo de operacion">
+						<h:outputText value="#{unidad.tipoOperacion}" />
+					</p:column>
+					
+					<p:column headerText="Unidad">
+						<h:outputText value="#{unidad.unidad}" />
+					</p:column>
+
+
+					<p:column headerText="Numero de colaboradores">
+						<h:outputText value="#{unidad.numerosColaboradores}" />
+					</p:column>
+
+
+					<p:column>
+						<p:commandButton icon="ui-icon-pencil"
+							actionListener="#{beanTiempoFabricacion.renderizarItem(unidad,true)}"
+							process="@this" update="@all"></p:commandButton>
+					</p:column>
+
+
+					<p:column>
+						<p:commandButton icon="ui-icon-trash"
+							actionListener="#{beanTiempoFabricacion.eliminarItem(unidad)}"
+							process="@this" update="@all">
+							<p:confirm header="Confirmacion"
+								message="Desea eliminar este item ?" icon="ui-icon-alert"></p:confirm>
+						</p:commandButton>
+
+						<p:confirmDialog global="true" showEffect="fade"
+							hideEffect="explode">
+							<p:commandButton value="Yes" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="No" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+					</p:column>
+				</p:dataTable>
+
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+</f:view>

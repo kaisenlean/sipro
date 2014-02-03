@@ -10,7 +10,7 @@ import com.formiplass.sipro.repositories.GenericRepository;
 import com.formiplass.sipro.repositories.TiempoFabricacionDao;
 import com.formiplass.sipro.services.TiempoFabricacionService;
 
-@Service("tiempoFaricacionService")
+@Service("tiempoFabricacionService")
 public class TiempoFabricacionServiceImpl extends GenericServiceImpl<TiempoFabricacion, Integer> implements Serializable,TiempoFabricacionService{
 
 	/**

@@ -13,30 +13,30 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tiempo_fabricacion")
-public class TiempoFabricacion implements Serializable{
+public class TiempoFabricacion implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@ManyToOne
-	@JoinColumn(name="referencia")
-	private Item referencia; 
-	
-	@Column(name="tipo_operacion")
+	@JoinColumn(name = "referencia")
+	private Item referencia;
+
+	@Column(name = "tipo_operacion")
 	private String tipoOperacion;
-	
-	@Column 
+
+	@Column
 	private String actividad;
-	
+
 	@Column
 	private Integer unidad;
-	
-	@Column(name="numeros_colaboradores")
+
+	@Column(name = "numeros_colaboradores")
 	private Integer numerosColaboradores;
 
-	
 	public TiempoFabricacion() {
 
 	}
@@ -80,6 +80,12 @@ public class TiempoFabricacion implements Serializable{
 	public void setNumerosColaboradores(Integer numerosColaboradores) {
 		this.numerosColaboradores = numerosColaboradores;
 	}
+	public Integer getId() {
+		return id;
+	}
 	
-	
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 }

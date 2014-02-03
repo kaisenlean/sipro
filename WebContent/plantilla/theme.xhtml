@@ -1,72 +1,85 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
-      
-		<h:head>
-		<title>Sipro</title>
-		<style type="text/css">
-			body {
-				  font-family: Verdana, Arial, Helvetica, sans-serif;
-				  font-size: 11px;
-			}
-			.header {
-				  font-family: Verdana, Arial, Helvetica, sans-serif;
-				  font-size: 11px;
-			}
-			.bottom {
-				  font-family: Verdana, Arial, Helvetica, sans-serif;
-				  font-size: 9px;
-				  text-align: center;
-				  vertical-align: middle;
-				  color: #8E969D;
-			}
-		</style>
-		</h:head>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Sipro</title>
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{login.validateSesion()}" />
+	</f:metadata>
+	<style type="text/css">
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+
+.header {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+
+.bottom {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	text-align: center;
+	vertical-align: middle;
+	color: #8E969D;
+}
+</style>
+</h:head>
 
 <body bgcolor="#ffffff">
-<table style="border:1px solid #CAD6E0"  align="center" cellpadding="0" cellspacing="0" border="0" width="100%">
-<tbody>
+	<table style="border: 1px solid #CAD6E0" align="center" cellpadding="0"
+		cellspacing="0" border="0" width="100%">
+		<tbody>
 
-	<tr>
-		<td class="header"  align="center" valign="middle" width="100%" bgcolor="#E4EBEB">
-			<p:tabMenu activeIndex="0">
-    <p:menuitem value="Item" url="/ui/tabMenu.jsf" icon="ui-icon-star"/>
-    <p:menuitem value="Materia Prima" url="/paginas/configuracion/materiaPrima/index.jsf" icon="ui-icon-search" />
-    <p:menuitem value="Unidad de Medida" url="/paginas/configuracion/unidadmedida/index.jsf" icon="ui-icon-document"/>
-    <p:menuitem value="Tiempo Fabricacion" url="/ui/tabMenuSupport.jsf" icon="ui-icon-wrench"/>
-</p:tabMenu>
-        <p:messages globalOnly="true" autoUpdate="true" showSummary="true" showDetail="true" severity="warn,error,info"></p:messages>            
-		</td>
-	</tr>
-	<tr>
-		<td height="1" width="100%" bgcolor="#CAD6E0"></td>
-	</tr>	
-
-	<tr>
-		
-					<td align="left" width="100%">
-					<p:ajaxStatus onstart="PF('statusDialog').show();"
-					onsuccess="PF('statusDialog').hide();" />
-
-				<p:dialog appendToBody="true" modal="true" widgetVar="statusDialog"
-					header="Por favor espere ..." draggable="false" closable="false">
-					<p:graphicImage value="/imagenes/ajaxloadingbar.gif" />
-				</p:dialog>
-					<ui:insert name="body">Page Body</ui:insert>
+			<tr>
+				<td class="header" align="center" valign="middle" width="100%"
+					bgcolor="#E4EBEB">
+					<h:form>
+				
+					<p:tabMenu>
+						<p:menuitem value="Materia Prima"
+							url="/paginas/configuracion/materiaPrima/index.jsf"
+							icon="ui-icon-search" />
+						<p:menuitem value="Unidad de Medida"
+							url="/paginas/configuracion/unidadmedida/index.jsf"
+							icon="ui-icon-document" />
+						<p:menuitem value="Tiempo Fabricacion"
+							url="/paginas/configuracion/tiempofabricacion/index.jsf"
+							icon="ui-icon-wrench" />
+						<p:menuitem value="Salir" actionListener="#{login.logOut()}"
+							process="@this" update="@all"></p:menuitem>
+					</p:tabMenu> 
+						</h:form>
 					
-					
-		
-		</td>
-	</tr>	
-	
-	<tr>
-		<td colspan="2"  valign="bottom" height="1" width="100%" bgcolor="#CAD6E0"></td>
-	</tr>
-</tbody>
-</table>
+					<p:messages globalOnly="true" autoUpdate="true" showSummary="true"
+						showDetail="true" severity="warn,error,info"></p:messages></td>
+			</tr>
+			<tr>
+				<td height="1" width="100%" bgcolor="#CAD6E0"></td>
+			</tr>
+
+			<tr>
+
+				<td align="left" width="100%"><p:ajaxStatus
+						onstart="PF('statusDialog').show();"
+						onsuccess="PF('statusDialog').hide();" /> <p:dialog
+						appendToBody="true" modal="true" widgetVar="statusDialog"
+						header="Por favor espere ..." draggable="false" closable="false">
+						<p:graphicImage value="/imagenes/ajaxloadingbar.gif" />
+					</p:dialog> <ui:insert name="body">Page Body</ui:insert></td>
+			</tr>
+
+			<tr>
+				<td colspan="2" valign="bottom" height="1" width="100%"
+					bgcolor="#CAD6E0"></td>
+			</tr>
+		</tbody>
+	</table>
 </body>
-		
+
 </html>

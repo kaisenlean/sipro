@@ -6,6 +6,9 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<title>Sipro</title>
+	 <f:metadata>
+        <f:event type="preRenderView" listener="#{login.validateSesionLOgin()}"/>
+    </f:metadata>
 </h:head>
 <h:body style="font-size: 11px;">
 	<h:form>
@@ -16,10 +19,10 @@
 			<h:graphicImage url="/imagenes/logo.jpg" width="250" height="100" />
 			<h:panelGrid columns="1" style="margin-left: 1%">
 		
-				<p:inputText size="30" placeholder="Usuario" style="width: 100%"
+				<p:inputText size="30" placeholder="Usuario" value="#{login.user}" style="width: 100%"
 					 id="usuari" />
 
-				<p:password size="30" placeholder="Contraseña" style="width: 100%"
+				<p:password size="30" value="#{login.password}" placeholder="Contraseña" style="width: 100%"
 					
 					onkeypress="if (event.keyCode == 13) { btnIngreso.jq.click();  return false; }"
 					id="contras"></p:password>
@@ -27,8 +30,9 @@
 			</h:panelGrid>
 			<p:commandButton icon="ui-icon-check" style="margin-left: 0%"
 				value="Ingresar" process="@this,contras,usuari" partialSubmit="true"
-				action="/inicio.jsf" id="btnIngreso" widgetVar="btnIngreso"
+				actionListener="#{login.entrar()}" update="@all" id="btnIngreso" widgetVar="btnIngreso"
 				 />
+				 <p:messages autoUpdate="true" globalOnly="true" showDetail="true" showSummary="true" severity="warn,error,info"></p:messages>
 <!-- 				<p:commandButton icon="ui-icon-check" style="margin-left: 0%" -->
 <!-- 				value="Ingresar" process="@this,contras,usuari" partialSubmit="true" -->
 <!-- 				action="#{login.login()}" id="btnIngreso" widgetVar="btnIngreso" -->
