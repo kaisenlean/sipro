@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.commons.lang.StringUtils;
 import org.primefaces.model.SortOrder;
 
 import com.formiplass.sipro.model.MateriaPrima;
@@ -61,13 +62,27 @@ public class BeanMateriaPrima extends StandardAbm<MateriaPrima, Integer>
 
 	@Override
 	public Integer custoCountBySearch(String globalFilter) {
-		return null;
+		return materiaPrimaService.countByCriteria(globalFilter);
 	}
 
 	@Override
 	public List<MateriaPrima> customSearch(int startingAt, int maxPerPage,
 			String globalFilter, String sortField, SortOrder sortOrder) {
-		return null;
+		String sort=null;
+		if (sortOrder.equals(SortOrder.ASCENDING)) {
+			sort="ASC";
+		}
+		if (sortOrder.equals(SortOrder.DESCENDING)) {
+			sort="DESC";
+		}
+		if (sortOrder.equals(SortOrder.UNSORTED)) {
+			sort="ASC";
+		}
+		if (sortField==null) {
+			sortField=StringUtils.EMPTY;
+		}
+		
+		return materiaPrimaService.findByCriteria(globalFilter, sortField, sort, startingAt, maxPerPage);
 	}
 
 	@Override

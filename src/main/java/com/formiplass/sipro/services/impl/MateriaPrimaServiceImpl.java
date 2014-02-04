@@ -1,6 +1,7 @@
 package com.formiplass.sipro.services.impl;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,16 @@ public class MateriaPrimaServiceImpl extends GenericServiceImpl<MateriaPrima, In
 	@Override
 	public GenericRepository<MateriaPrima, Integer> getDao() {
 		return materiaPrimaDao;
+	}
+	@Override
+	public List<MateriaPrima> findByCriteria(String filter, String sortBy,
+			String sortOrder, int start, int end) {
+		
+		return materiaPrimaDao.findByCriteria(filter, sortBy, sortOrder, start, end);
+	}
+	@Override
+	public int countByCriteria(String filter) {
+		return materiaPrimaDao.countByCriteria(filter);
 	}
 
 }
