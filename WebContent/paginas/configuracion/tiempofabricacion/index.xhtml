@@ -5,16 +5,16 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:composition template="/plantilla/theme.xhtml">
+	<ui:composition template="/plantilla/theme2.xhtml">
 
 		<ui:define name="body">
 			<h1>
-				<h:outputText value="Gestion de Tiempos de Fabricación" />
+				<h:outputText value="Gestión de Tiempos de Fabricación" />
 			</h1>
 
 			<h:form>
 				<h:panelGrid rendered="#{!beanTiempoFabricacion.form}">
-					<p:commandButton value=" Nuevo tiempo de fabricacion"
+					<p:commandButton styleClass="btn btn-success"  value=" Nuevo tiempo de fabricacion"
 						action="#{beanTiempoFabricacion.verFormNuevo(true)}" process="@this"
 						update="@all"></p:commandButton>
 				</h:panelGrid>
@@ -83,9 +83,9 @@
 
 
 
-						<p:commandButton value="Aceptar" process="@all" update="@all"
+						<p:commandButton   value="Aceptar" process="@all" update="@all"
 							action="#{beanTiempoFabricacion.aceptar()}"></p:commandButton>
-						<p:commandButton value="Cancelar" immediate="true" process="@all" update="@all"
+						<p:commandButton   value="Cancelar" immediate="true" process="@all" update="@all"
 							action="#{beanTiempoFabricacion.reglaNavegacion()}"></p:commandButton>
 					</h:panelGrid>
 				</p:panel>

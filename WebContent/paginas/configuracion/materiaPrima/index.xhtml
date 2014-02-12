@@ -5,16 +5,16 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:composition template="/plantilla/theme.xhtml">
+	<ui:composition template="/plantilla/theme2.xhtml">
 
 		<ui:define name="body">
 			<h1>
-				<h:outputText value="Gestion de Materia Prima" />
+				<h:outputText styleClass="h1" value="Gestión de Materia Prima" />
 			</h1>
 
 			<h:form>
 				<h:panelGrid rendered="#{!beanMateriaPrima.form}">
-					<p:commandButton value=" Nueva materia prima"
+					<p:commandButton styleClass="btn btn-success" value=" Nueva materia prima"
 						action="#{beanMateriaPrima.verFormNuevo(true)}" process="@this"
 						update="@all"></p:commandButton>
 				</h:panelGrid>
@@ -68,13 +68,13 @@
 
 
 						<h:outputText value="Unidad de medida" />
-						<p:selectOneMenu id="uniMedida"
-							value="#{beanMateriaPrima.selMateriaPrima}" required="true"
+						<h:selectOneMenu id="uniMedida" style="width:100%"
+						styleClass="ui-selectonemenu-label ui-inputfield ui-corner-all"	value="#{beanMateriaPrima.selMateriaPrima}" required="true"
 							requiredMessage="Selecciona una unidad de medida">
 							<f:selectItem itemLabel=" - - Seleccione - -" itemValue="" />
 							<p:ajax event="change" partialSubmit="true"></p:ajax>
 							<f:selectItems value="#{selectorUnidadMedida.lista}"></f:selectItems>
-						</p:selectOneMenu>
+						</h:selectOneMenu>
 						<p:message for="uniMedida"></p:message>
 
 

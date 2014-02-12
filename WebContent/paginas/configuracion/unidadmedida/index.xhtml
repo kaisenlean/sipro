@@ -5,16 +5,16 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/plantilla/theme.xhtml">
+<ui:composition template="/plantilla/theme2.xhtml">
 
 	<ui:define name="body">
 		<h1>
-			<h:outputText value="Gestion de Unidades de medida" />
+			<h:outputText value="Gestión de Unidades de medida" />
 		</h1>
 
 		<h:form>
 			<h:panelGrid rendered="#{!beanUnidadMedida.form}">
-				<p:commandButton value=" Nueva unidad de medida"
+				<p:commandButton styleClass="btn btn-success"  value=" Nueva unidad de medida"
 					action="#{beanUnidadMedida.verFormNuevo(true)}" process="@this"
 					update="@all"></p:commandButton>
 			</h:panelGrid>
@@ -40,9 +40,9 @@
 					<p:message for="valorUnidad"></p:message>
 
 
-					<p:commandButton value="Aceptar" process="@all" update="@all"
+					<p:commandButton  value="Aceptar" process="@all" update="@all"
 						action="#{beanUnidadMedida.aceptar()}"></p:commandButton>
-					<p:commandButton value="Cancelar" immediate="true"
+					<p:commandButton   value="Cancelar" immediate="true" process="@this" update="@all"
 						action="#{beanUnidadMedida.reglaNavegacion()}"></p:commandButton>
 				</h:panelGrid>
 			</p:panel>
